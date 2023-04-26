@@ -6,9 +6,13 @@
 //
 
 import SwiftUI
+import FirebaseCore
+import FirebaseMessaging
 
 @main
-struct ios_sample_app_pnfpbiosApp: App {
+struct Aquarium_NetworkApp: App {
+    // register app delegate for Firebase setup
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     var body: some Scene {
         WindowGroup {
             ContentView()

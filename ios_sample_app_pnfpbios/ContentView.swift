@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct ContentView: View {
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
-        }
-        .padding()
+        
+        //NavigationView {
+            SwiftUIWebView(url: URL(string: "https://www.sampleiospnfpbapp.com"))
+        //SwiftUIWebView(url: URL(string: "https://www.muraliwebworld.com"))
+            //.navigationViewStyle(StackNavigationViewStyle())
+        //}
     }
 }
 
