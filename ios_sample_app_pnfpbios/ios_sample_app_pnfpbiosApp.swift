@@ -10,7 +10,7 @@ import FirebaseCore
 import FirebaseMessaging
 
 @main
-struct Aquarium_NetworkApp: App {
+struct Aqua_NetApp: App {
     // register app delegate for Firebase setup
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     var body: some Scene {

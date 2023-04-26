@@ -1,6 +1,6 @@
 //
 //  Appdelegate.swift
-//  Aquarium Network
+//  
 //
 //  Created by user233299 on 2/6/23.
 //
@@ -184,7 +184,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                               willPresent notification: UNNotification) async
     -> UNNotificationPresentationOptions {
     let userInfo = notification.request.content.userInfo
-        //print("response aquariumpush test9");
+      
     // With swizzling disabled you must let Messaging know about the message, for Analytics
     // Messaging.messaging().appDidReceiveMessage(userInfo)
     // [START_EXCLUDE]
@@ -233,7 +233,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 extension AppDelegate: MessagingDelegate {
   // [START refresh_token]
   func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-      //print("response aquariumpush test messaging");
+   
     print("Firebase registration token: \(String(describing: fcmToken))")
 
     let dataDict: [String: String] = ["token": fcmToken ?? ""]
