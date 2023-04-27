@@ -180,42 +180,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate: UNUserNotificationCenterDelegate {
   // Receive displayed notifications for iOS 10 devices.
     
-  func userNotificationCenter(_ center: UNUserNotificationCenter,
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
                               willPresent notification: UNNotification) async
     -> UNNotificationPresentationOptions {
-    let userInfo = notification.request.content.userInfo
-      
-    // With swizzling disabled you must let Messaging know about the message, for Analytics
-    // Messaging.messaging().appDidReceiveMessage(userInfo)
-    // [START_EXCLUDE]
-    // Print message ID.
-    //if let messageID = userInfo[gcmMessageIDKey] {
-    //  print("Message ID: \(messageID)")
-    //}
-    // [END_EXCLUDE]
-    // Print full message.
-    print(userInfo)
-
-    // Change this to your preferred presentation option
-        return [[.banner, .badge, .list, .sound]]
-  }
-
-    func userNotificationCenter(_ center: UNUserNotificationCenter,
-                              didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) async {
-    let userInfo = response.notification.request.content.userInfo
-        print(response);
-        print("userInfo")
-        print(userInfo)
-      if let aps = userInfo["aps"] as? [String: Any] {
-          if let newUrl = aps["alert"] as? String {
-              let info = ["url": newUrl]
+        let userInfo = notification.request.content.userInfo
+        //print("response aquariumpush test9");
+        // With swizzling disabled you must let Messaging know about the message, for Analytics
+        // Messaging.messaging().appDidReceiveMessage(userInfo)
+        // [START_EXCLUDE]
+        // Print message ID.
+        //if let messageID = userInfo[gcmMessageIDKey] {
+        //  print("Message ID: \(messageID)")
+        //}
+        // [END_EXCLUDE]
+        // Print full message.
+        if let clickUrl = userInfo["click_url"] as? String {
+              let info = ["url": clickUrl]
 
               // post notification with info (url)
               NotificationCenter.default.post(name: NSNotification.Name(rawValue: "NotificationReloadWebView"), object: nil, userInfo: info)
-          }
-      }
+        }
+        //completionHandler([.banner, .badge, .list, .sound])
 
-      completionHandler()
+    // Change this to your preferred presentation option
+        return ([.banner, .badge, .list, .sound])
+  }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                              didReceive response: UNNotificationResponse) async {
+        let userInfo = response.notification.request.content.userInfo
+        if let clickUrl = userInfo["click_url"] as? String {
+              let info = ["url": clickUrl]
+
+              // post notification with info (url)
+              NotificationCenter.default.post(name: NSNotification.Name(rawValue: "NotificationReloadWebView"), object: nil, userInfo: info)
+        }
+        //completionHandler()
     // [START_EXCLUDE]
     // Print message ID.
     //if let messageID = userInfo[gcmMessageIDKey] {

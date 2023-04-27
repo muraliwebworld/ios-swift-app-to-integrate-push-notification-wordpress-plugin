@@ -234,7 +234,11 @@ class WebviewController: UIViewController, WKNavigationDelegate, WKScriptMessage
         ])*/
 
         self.webview.addSubview(self.progressbar)
+        
         self.setProgressBarPosition()
+        
+        NotificationCenter.default.addObserver(self,selector: #selector(reloadWebview(notification:)), name: Notification.Name("NotificationReloadWebView"), object: nil)
+        
         webview.scrollView.addObserver(self, forKeyPath: "contentOffset", options: .new, context: nil)
 
         self.progressbar.progress = 0.1
@@ -246,10 +250,18 @@ class WebviewController: UIViewController, WKNavigationDelegate, WKScriptMessage
     }
     
     @objc func reloadWebview(notification: Notification) {
-        if let url = notification.userInfo?["url"] as? URL {
+        if let userinfo = notification.userInfo as? [String : Any] {
             // load the url to webview
-            let urlRequest = URLRequest(url: url)
-            webview.load(urlRequest)
+            //let urlRequest = URLRequest(url: url)
+            if let clickUrl = userinfo["url"] as? String {
+                self.webview.load(URLRequest(url: URL(string:clickUrl)!))
+            }
+            else {
+                self.webview.load(URLRequest(url: URL(string: "https://www.sampleiospnfpbapp.com")!))
+            }
+        }
+        else {
+            self.webview.load(URLRequest(url: URL(string: "https://www.sampleiospnfpbapp.com")!))
         }
     }
     
